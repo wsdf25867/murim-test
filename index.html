@@ -210,18 +210,20 @@
         </div>
 
         <!-- Navigation Buttons & Notification -->
-        <div class="mt-8 pt-6 border-t border-stone-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <button id="btn-prev" onclick="prevPage()" class="w-full sm:w-auto px-6 py-2.5 rounded-lg border border-stone-700 hover:border-stone-500 text-stone-300 text-sm font-brush transition-all disabled:opacity-30 disabled:pointer-events-none">
-            ← 이전 초식
-          </button>
-          
-          <div id="page-warning" class="text-rose-400 text-xs font-brush tracking-wide opacity-0 transition-opacity">
+        <div class="mt-8 pt-6 border-t border-stone-800/80">
+          <div id="page-warning" class="text-center text-rose-400 text-xs font-brush tracking-wide opacity-0 transition-opacity mb-4">
             ※ 현재 면의 모든 문답에 응하셔야 다음 초식으로 나아갈 수 있습니다.
           </div>
 
-          <button id="btn-next" onclick="nextPage()" class="w-full sm:w-auto px-8 py-2.5 rounded-lg font-brush font-bold bg-amber-500 hover:bg-amber-400 text-stone-950 text-sm tracking-widest transition-all shadow-[0_0_15px_rgba(212,175,55,0.3)]">
-            다음 초식 →
-          </button>
+          <div class="flex flex-row items-center gap-3">
+            <button id="btn-prev" onclick="prevPage()" class="flex-1 px-6 py-2.5 rounded-lg border border-stone-700 hover:border-stone-500 text-stone-300 text-sm font-brush transition-all disabled:opacity-30 disabled:pointer-events-none">
+              ← 이전 초식
+            </button>
+
+            <button id="btn-next" onclick="nextPage()" class="flex-1 px-8 py-2.5 rounded-lg font-brush font-bold bg-amber-500 hover:bg-amber-400 text-stone-950 text-sm tracking-widest transition-all shadow-[0_0_15px_rgba(212,175,55,0.3)]">
+              다음 초식 →
+            </button>
+          </div>
         </div>
       </section>
 
