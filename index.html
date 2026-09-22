@@ -336,6 +336,10 @@
           </div>
         </div>
 
+        <div class="text-center mb-6">
+          <a id="res-clan-link" href="/clan/" class="inline-block text-xs text-amber-300/80 hover:text-amber-300 underline underline-offset-4 font-brush">내 문파의 유래와 성향 더 알아보기 →</a>
+        </div>
+
         <!-- Action Buttons -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
           <button onclick="copyResultText()" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 text-amber-200 text-sm font-brush tracking-wider transition-all flex items-center justify-center gap-2">
@@ -361,6 +365,10 @@
   <!-- Footer -->
   <footer class="relative z-10 w-full border-t border-stone-900 bg-black/60 py-4 px-6 text-center text-xs text-stone-500 font-brush font-light">
     강호 성향 검사 (江湖性向檢査) · 본 검사는 순수 클라이언트 기반으로 구동되며 일체의 개인 정보를 수집하지 않습니다.
+    <span class="mx-1">·</span>
+    <a href="/intro/" class="hover:text-amber-400">소개</a>
+    <span class="mx-1">·</span>
+    <a href="/clan/" class="hover:text-amber-400">문파 해설</a>
     <span class="mx-1">·</span>
     <a href="/privacy.html" class="hover:text-amber-400">개인정보처리방침</a>
   </footer>
@@ -400,6 +408,7 @@
     // 16 Archetypes Database - Cleaned of all MBTI codes in displays
     const archetypes = {
       "INTJ": {
+        slug: "sacheon-dangga",
         clan: "사천당가 (四川唐門)",
         weapon: "암기(暗器) & 독(毒)",
         title: "만겁흑막의 책사 (萬劫黑幕 策士)",
@@ -411,6 +420,7 @@
         worst: "풍류객의 풍류검신 [삼척보검]"
       },
       "INTP": {
+        slug: "mudang",
         clan: "무당파 (武當派)",
         weapon: "태극목검(木劍) & 비급(秘笈)",
         title: "서고의 기문둔갑술사 (書庫 奇門遁甲術士)",
@@ -422,6 +432,7 @@
         worst: "남궁세가의 마당발 공자 [대검]"
       },
       "ENTJ": {
+        slug: "cheonma",
         clan: "천마신교 (天魔神敎)",
         weapon: "마도(魔刀)",
         title: "패도무쌍의 천하통일 교주 (覇道無雙 敎主)",
@@ -433,6 +444,7 @@
         worst: "종남파의 유유자적객 [낚싯대]"
       },
       "ENTP": {
+        slug: "haomun",
         clan: "하오문 (下邪魔門)",
         weapon: "철선(鐵扇 / 쇠부채)",
         title: "삼촌설검의 괴짜도사 (三寸舌劍 怪癖道士)",
@@ -444,6 +456,7 @@
         worst: "화산파의 온정대제자 [매화검]"
       },
       "ISTJ": {
+        slug: "shaolin",
         clan: "소림사 (少林寺)",
         weapon: "곤봉(棍棒 / 제마곤)",
         title: "계율수호의 장로 (戒律守護 長老)",
@@ -455,6 +468,7 @@
         worst: "개방의 방랑협객 [타구봉]"
       },
       "ISFJ": {
+        slug: "hwasan",
         clan: "화산파 (華山派)",
         weapon: "매화검(梅花劍)",
         title: "호법원의 온정대제자 (護法院 溫情大弟子)",
@@ -466,6 +480,7 @@
         worst: "하오문의 괴짜도사 [철선]"
       },
       "ESTJ": {
+        slug: "gwanbu",
         clan: "포달청 / 관부 (官府)",
         weapon: "관도(官刀)",
         title: "철혈규율의 총관 포두 (鐵血規律 總管 捕頭)",
@@ -477,6 +492,7 @@
         worst: "아미파의 음률가인 [비파]"
       },
       "ESFJ": {
+        slug: "namgung",
         clan: "남궁세가 (南宮世家)",
         weapon: "대검(大劍)",
         title: "강호마당발 세가 공자 (江湖廣域 門閥公子)",
@@ -488,6 +504,7 @@
         worst: "무당파의 기문둔갑술사 [태극목검]"
       },
       "INFJ": {
+        slug: "gonryun",
         clan: "곤륜파 (崑崙派)",
         weapon: "운기석(靈石) & 선도(仙刀)",
         title: "백발의 은거선각자 (白髮 隱居先覺者)",
@@ -499,6 +516,7 @@
         worst: "녹림십팔채의 산채 두목 [쌍부]"
       },
       "INFP": {
+        slug: "ami",
         clan: "아미파 (峨嵋派)",
         weapon: "비파(琵琶) & 단검",
         title: "비운의 음률가인 (悲運 音律佳人)",
@@ -510,6 +528,7 @@
         worst: "포달청의 총관 포두 [관도]"
       },
       "ENFJ": {
+        slug: "murimmaeng",
         clan: "무림맹 (武林盟)",
         weapon: "의천검(倚天劍)",
         title: "민초의 등불 의협맹주 (民草 燈火 義俠盟主)",
@@ -521,6 +540,7 @@
         worst: "살수문의 일격필살 자객 [비수]"
       },
       "ENFP": {
+        slug: "gaebang",
         clan: "개방 (丐幇)",
         weapon: "타구봉(打狗棒)",
         title: "풍운을 쫓는 방랑협객 (風雲 追跡 放浪俠客)",
@@ -532,6 +552,7 @@
         worst: "소림사의 계율장로 [곤봉]"
       },
       "ISTP": {
+        slug: "salsumun",
         clan: "살수문 / 흑살문 (黑殺門)",
         weapon: "비수(匕首 / 단도)",
         title: "그림자 없는 일격필살 자객 (無影 刺客)",
@@ -543,6 +564,7 @@
         worst: "무림맹의 의협맹주 [의천검]"
       },
       "ISFP": {
+        slug: "jongnam",
         clan: "종남파 (終南派)",
         weapon: "낚싯대 & 유엽도(柳葉刀)",
         title: "대나무숲 유유자적객 (竹林 悠悠自適客)",
@@ -554,6 +576,7 @@
         worst: "천마신교의 천하통일 교주 [마도]"
       },
       "ESTP": {
+        slug: "nogrim",
         clan: "녹림십팔채 (綠林十八寨)",
         weapon: "쌍부(雙斧 / 도끼)",
         title: "객잔난투의 산채 두목 (客棧亂鬪 山寨頭目)",
@@ -565,6 +588,7 @@
         worst: "곤륜파의 은거선각자 [운기석]"
       },
       "ESFP": {
+        slug: "pungnyu",
         clan: "풍류객 (風流客)",
         weapon: "삼척보검(寶劍) & 명품 의복",
         title: "도화만발의 풍류검신 (桃花滿發 風流劍神)",
@@ -752,6 +776,7 @@
       document.getElementById('res-weakness').textContent = arch.weakness;
       document.getElementById('res-best').textContent = arch.best;
       document.getElementById('res-worst').textContent = arch.worst;
+      document.getElementById('res-clan-link').href = `/clan/${arch.slug}/`;
 
       // Update Bar Widths & Pure Hanja/Korean Labels
       document.getElementById('label-e').textContent = `출사(出仕) 강호교류 ${pE}%`;

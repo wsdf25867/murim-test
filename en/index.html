@@ -335,6 +335,10 @@
           </div>
         </div>
 
+        <div class="text-center mb-6">
+          <a id="res-clan-link" href="/en/clan/" class="inline-block text-xs text-amber-300/80 hover:text-amber-300 underline underline-offset-4 font-brush">Learn more about your sect's origin and temperament →</a>
+        </div>
+
         <!-- Action Buttons -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
           <button onclick="copyResultText()" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 text-amber-200 text-sm font-brush tracking-wider transition-all flex items-center justify-center gap-2">
@@ -360,6 +364,10 @@
   <!-- Footer -->
   <footer class="relative z-10 w-full border-t border-stone-900 bg-black/60 py-4 px-6 text-center text-xs text-stone-500 font-brush font-light">
     Jianghu Temperament Test (江湖性向檢査) · This test runs entirely in your browser and collects no personal data.
+    <span class="mx-1">·</span>
+    <a href="/en/intro/" class="hover:text-amber-400">About</a>
+    <span class="mx-1">·</span>
+    <a href="/en/clan/" class="hover:text-amber-400">Sect Guide</a>
     <span class="mx-1">·</span>
     <a href="/en/privacy.html" class="hover:text-amber-400">Privacy Policy</a>
   </footer>
@@ -399,6 +407,7 @@
     // 16 Archetypes Database
     const archetypes = {
       "INTJ": {
+        slug: "sacheon-dangga",
         clan: "Sacheon Tang Clan (四川唐門)",
         weapon: "Hidden Weapons & Poison",
         title: "The Strategist of a Thousand Schemes",
@@ -410,6 +419,7 @@
         worst: "The Dashing Sword Saint of the Wanderers [Three-Foot Blade]"
       },
       "INTP": {
+        slug: "mudang",
         clan: "Mudang Sect (武當派)",
         weapon: "Taiji Wooden Sword & Ancient Manuals",
         title: "The Archive's Master of Mystic Arts",
@@ -421,6 +431,7 @@
         worst: "The Well-Connected Young Master of the Namgung Clan [Greatsword]"
       },
       "ENTJ": {
+        slug: "cheonma",
         clan: "Cheonma Demonic Cult (天魔神敎)",
         weapon: "Demonic Blade",
         title: "The Peerless Tyrant Set to Conquer the World",
@@ -432,6 +443,7 @@
         worst: "The Carefree Wanderer of the Jongnam Sect [Fishing Rod]"
       },
       "ENTP": {
+        slug: "haomun",
         clan: "Ha-o-mun (下邪魔門)",
         weapon: "Iron Fan",
         title: "The Eccentric Sage with a Tongue Sharper Than Any Blade",
@@ -443,6 +455,7 @@
         worst: "The Devoted Senior Disciple of the Hwasan Sect [Plum Blossom Sword]"
       },
       "ISTJ": {
+        slug: "shaolin",
         clan: "Shaolin Temple (少林寺)",
         weapon: "Demon-Quelling Staff",
         title: "The Elder Who Guards the Precepts",
@@ -454,6 +467,7 @@
         worst: "The Wandering Hero of the Beggars' Sect [Dog-Beating Staff]"
       },
       "ISFJ": {
+        slug: "hwasan",
         clan: "Hwasan Sect (華山派)",
         weapon: "Plum Blossom Sword",
         title: "The Warm-Hearted Senior Disciple of the Guardian Hall",
@@ -465,6 +479,7 @@
         worst: "The Eccentric Sage of Ha-o-mun [Iron Fan]"
       },
       "ESTJ": {
+        slug: "gwanbu",
         clan: "The Magistrate's Bureau (官府)",
         weapon: "Official's Blade",
         title: "The Iron-Willed Chief Constable",
@@ -476,6 +491,7 @@
         worst: "The Melancholy Musician of the Emei Sect [Pipa]"
       },
       "ESFJ": {
+        slug: "namgung",
         clan: "Namgung Clan (南宮世家)",
         weapon: "Greatsword",
         title: "The Well-Connected Young Master of the Jianghu",
@@ -487,6 +503,7 @@
         worst: "The Mystic Scholar of the Mudang Sect [Taiji Wooden Sword]"
       },
       "INFJ": {
+        slug: "gonryun",
         clan: "Gonryun Sect (崑崙派)",
         weapon: "Spirit Stone & Immortal Blade",
         title: "The White-Haired Recluse Who Sees Beyond",
@@ -498,6 +515,7 @@
         worst: "The Mountain Bandit Chief of the Green Forest [Twin Axes]"
       },
       "INFP": {
+        slug: "ami",
         clan: "Emei Sect (峨嵋派)",
         weapon: "Pipa & Short Blade",
         title: "The Melancholy Musician of Fate",
@@ -509,6 +527,7 @@
         worst: "The Chief Constable of the Magistrate's Bureau [Official's Blade]"
       },
       "ENFJ": {
+        slug: "murimmaeng",
         clan: "Martial Alliance (武林盟)",
         weapon: "Heaven-Reliant Sword",
         title: "The People's Beacon, Leader of the Righteous Alliance",
@@ -520,6 +539,7 @@
         worst: "The One-Strike Assassin of the Shadow Blade Sect [Dagger]"
       },
       "ENFP": {
+        slug: "gaebang",
         clan: "Beggars' Sect (丐幇)",
         weapon: "Dog-Beating Staff",
         title: "The Wandering Hero Chasing the Winds",
@@ -531,6 +551,7 @@
         worst: "The Elder of the Shaolin Temple [Demon-Quelling Staff]"
       },
       "ISTP": {
+        slug: "salsumun",
         clan: "Shadow Blade Sect (黑殺門)",
         weapon: "Dagger",
         title: "The Shadowless One-Strike Assassin",
@@ -542,6 +563,7 @@
         worst: "The Righteous Leader of the Martial Alliance [Heaven-Reliant Sword]"
       },
       "ISFP": {
+        slug: "jongnam",
         clan: "Jongnam Sect (終南派)",
         weapon: "Fishing Rod & Willow-Leaf Blade",
         title: "The Carefree Wanderer of the Bamboo Grove",
@@ -553,6 +575,7 @@
         worst: "The World-Conquering Cult Leader of the Cheonma Cult [Demonic Blade]"
       },
       "ESTP": {
+        slug: "nogrim",
         clan: "Green Forest Eighteen Strongholds (綠林十八寨)",
         weapon: "Twin Axes",
         title: "The Tavern-Brawling Mountain Bandit Chief",
@@ -564,6 +587,7 @@
         worst: "The Reclusive Sage of the Gonryun Sect [Spirit Stone]"
       },
       "ESFP": {
+        slug: "pungnyu",
         clan: "The Wanderers (風流客)",
         weapon: "Three-Foot Blade & Fine Silks",
         title: "The Dashing Sword Saint in Full Peach Blossom",
@@ -751,6 +775,7 @@
       document.getElementById('res-weakness').textContent = arch.weakness;
       document.getElementById('res-best').textContent = arch.best;
       document.getElementById('res-worst').textContent = arch.worst;
+      document.getElementById('res-clan-link').href = `/en/clan/${arch.slug}/`;
 
       // Update Bar Widths & Labels
       document.getElementById('label-e').textContent = `Engage ${pE}%`;
