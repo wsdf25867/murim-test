@@ -616,6 +616,9 @@
     const PAGE_SIZE = 5;
     const TOTAL_PAGES = Math.ceil(questions.length / PAGE_SIZE);
 
+    // If this page was opened from a shared result link (?r=...), show that result directly
+    applyResultFromUrl();
+
     function startTest() {
       document.getElementById('view-intro').classList.add('hidden');
       document.getElementById('view-test').classList.remove('hidden');
@@ -753,6 +756,37 @@
         if (q.type === 'JP') scoreJP += val;
       });
 
+      renderResultView(scoreEI, scoreSN, scoreTF, scoreJP);
+      history.replaceState(null, '', buildResultUrl(scoreEI, scoreSN, scoreTF, scoreJP));
+
+      // Switch views
+      document.getElementById('view-test').classList.add('hidden');
+      document.getElementById('view-result').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Shareable result link: ?r=<scoreEI>,<scoreSN>,<scoreTF>,<scoreJP> (each -15~15)
+    function buildResultUrl(scoreEI, scoreSN, scoreTF, scoreJP) {
+      return `${location.origin}${location.pathname}?r=${scoreEI},${scoreSN},${scoreTF},${scoreJP}`;
+    }
+
+    function applyResultFromUrl() {
+      const raw = new URLSearchParams(location.search).get('r');
+      if (!raw) return false;
+
+      const parts = raw.split(',').map(n => parseInt(n, 10));
+      if (parts.length !== 4 || parts.some(n => isNaN(n))) return false;
+
+      const [scoreEI, scoreSN, scoreTF, scoreJP] = parts.map(n => Math.max(-15, Math.min(15, n)));
+
+      renderResultView(scoreEI, scoreSN, scoreTF, scoreJP);
+      document.getElementById('view-intro').classList.add('hidden');
+      document.getElementById('view-test').classList.add('hidden');
+      document.getElementById('view-result').classList.remove('hidden');
+      return true;
+    }
+
+    function renderResultView(scoreEI, scoreSN, scoreTF, scoreJP) {
       // Percent calculations (5 questions per axis, range -15 ~ +15)
       const pE = Math.round(((scoreEI + 15) / 30) * 100);
       const pI = 100 - pE;
@@ -807,16 +841,12 @@
       document.getElementById('label-p').textContent = `유운(流雲) 임기응변 ${pP}%`;
       document.getElementById('bar-j').style.width = `${pJ}%`;
       document.getElementById('bar-p').style.width = `${pP}%`;
-
-      // Switch views
-      document.getElementById('view-test').classList.add('hidden');
-      document.getElementById('view-result').classList.remove('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function restartTest() {
       answers = {};
       currentPage = 0;
+      history.replaceState(null, '', location.pathname);
       document.getElementById('view-result').classList.add('hidden');
       document.getElementById('view-test').classList.add('hidden');
       document.getElementById('view-intro').classList.remove('hidden');
