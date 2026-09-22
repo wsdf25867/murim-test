@@ -31,6 +31,11 @@
   <meta name="theme-color" content="#0d0e12">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Kakao JavaScript SDK: https://developers.kakao.com/docs/latest/ko/tutorial/js-share -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.2/kakao.min.js" integrity="sha384-zt/G7/KfaRQ9dT/QIkS0ujMtzouJqzuSJcXVQu50x0rl/+mD1dc70AeOejVbMD9E" crossorigin="anonymous"></script>
+  <script>
+    Kakao.init('054e0cb8011be564ce8ce6349985c40c');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Song+Myung&display=swap" rel="stylesheet">
@@ -343,6 +348,9 @@
 
         <!-- Action Buttons -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <button onclick="shareKakao()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#FEE500] hover:bg-[#FDD800] text-[#391B1B] text-sm font-brush font-bold tracking-wider transition-all flex items-center justify-center gap-2">
+            <span>💬</span> <span>카카오톡으로 결과 전하기</span>
+          </button>
           <button onclick="copyResultText()" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 text-amber-200 text-sm font-brush tracking-wider transition-all flex items-center justify-center gap-2">
             <span>📜</span> <span>비급 결과 서찰 복사</span>
           </button>
@@ -843,6 +851,40 @@
 
     function shareURL() {
       copyTextToClipboard(window.location.href, "🔗 비무 초대 전령 링크가 복사되었습니다!");
+    }
+
+    function shareKakao() {
+      if (typeof Kakao === 'undefined' || !Kakao.isInitialized()) {
+        showToast("카카오톡 공유 기능을 준비 중입니다.");
+        return;
+      }
+      const sect = document.getElementById('res-sect-badge').textContent;
+      const weapon = document.getElementById('res-weapon-badge').textContent;
+      const title = document.getElementById('res-title').textContent;
+      const quote = document.getElementById('res-subtitle').textContent;
+      const pageUrl = window.location.href;
+
+      Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: `${title} | 강호 성향 검사`,
+          description: `◈ 소속 문파: ${sect}\n◈ 본신 병장기: ${weapon}\n${quote}`,
+          imageUrl: 'https://murim-test.com/og-image.jpg',
+          link: {
+            mobileWebUrl: pageUrl,
+            webUrl: pageUrl,
+          },
+        },
+        buttons: [
+          {
+            title: '나도 강호 성향 검사하기',
+            link: {
+              mobileWebUrl: pageUrl,
+              webUrl: pageUrl,
+            },
+          },
+        ],
+      });
     }
 
     function showToast(msg) {
