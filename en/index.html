@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jianghu Temperament Test (江湖性向檢査) | Discover Your Martial Pulse</title>
+  <meta name="description" content="Righteous, unorthodox, or demonic? Discover which martial arts sect you truly belong to and your legendary weapon through twenty questions - the Jianghu Temperament Test.">
+  <meta name="keywords" content="jianghu temperament test, wuxia mbti, wuxia personality test, mbti test, martial arts sect test, personality quiz">
+  <link rel="canonical" href="https://murim-test.com/en/">
+  <link rel="alternate" hreflang="ko" href="https://murim-test.com/">
+  <link rel="alternate" hreflang="en" href="https://murim-test.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://murim-test.com/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jianghu Temperament Test">
+  <meta property="og:url" content="https://murim-test.com/en/">
+  <meta property="og:title" content="Where Does Your Blade Point? | Jianghu Temperament Test">
+  <meta property="og:description" content="Righteous, unorthodox, or demonic? Discover which martial arts sect you truly belong to and your legendary weapon through twenty questions.">
+  <meta property="og:image" content="https://murim-test.com/og-image.jpg">
+  <meta property="og:image:width" content="1376">
+  <meta property="og:image:height" content="768">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Where Does Your Blade Point? | Jianghu Temperament Test">
+  <meta name="twitter:description" content="Righteous, unorthodox, or demonic? Discover which martial arts sect you truly belong to and your legendary weapon through twenty questions.">
+  <meta name="twitter:image" content="https://murim-test.com/og-image.jpg">
+
+  <meta name="theme-color" content="#0d0e12">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Song+Myung&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0d0e12;
+      --bg-panel: #16181f;
+      --gold-primary: #d4af37;
+      --gold-light: #f7e7a9;
+      --gold-dark: #91721e;
+      --crimson: #9e2a2b;
+      --jade: #2a9d8f;
+      --ink: #1f242d;
+    }
+    body {
+      font-family: 'Noto Serif KR', serif;
+      background-color: var(--bg-dark);
+      color: #e6e6e6;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      background-image:
+        radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 10% 90%, rgba(158, 42, 43, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(42, 157, 143, 0.06) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+    .font-brush {
+      font-family: 'Song Myung', 'Noto Serif KR', serif;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0d0e12;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #333842;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gold-dark);
+    }
+    /* Parchment border decoration */
+    .border-murim {
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(212, 175, 55, 0.05);
+    }
+    .text-gold-glow {
+      text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+    }
+    /* Likert option radio buttons */
+    .likert-btn {
+      transition: all 0.2s ease-in-out;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .likert-btn:hover {
+      transform: scale(1.15);
+    }
+    .likert-btn.selected {
+      transform: scale(1.22);
+      box-shadow: 0 0 12px currentColor;
+    }
+    /* Floating dust/cherry petal canvas */
+    #fx-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between relative overflow-x-hidden selection:bg-amber-900 selection:text-amber-100">
+
+  <canvas id="fx-canvas"></canvas>
+
+  <!-- Top Decorative Header -->
+  <header class="relative z-10 w-full border-b border-amber-900/40 bg-black/40 backdrop-blur-md py-4 px-6">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="restartTest()">
+        <div class="w-8 h-8 rounded-full border border-amber-500/60 flex items-center justify-center bg-black/60 shadow-[0_0_8px_rgba(212,175,55,0.3)]">
+          <span class="text-amber-400 font-brush text-sm font-bold">俠</span>
+        </div>
+        <span class="text-amber-200/90 font-brush tracking-widest text-lg font-bold">Jianghu Temperament Test</span>
+      </div>
+      <div class="text-xs text-stone-400 tracking-wider font-light flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="hidden sm:inline">Chronicle of Martial Temperament</span>
+        <a href="/" class="ml-1 px-2 py-0.5 rounded border border-stone-700 hover:border-amber-500 text-stone-400 hover:text-amber-300 transition-colors">KO</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 flex-grow flex items-center justify-center p-4 sm:p-6 md:p-8">
+    <div class="w-full max-w-3xl">
+
+      <!-- ==================== 1. INTRO SCREEN ==================== -->
+      <section id="view-intro" class="border-murim bg-[#12141a]/90 backdrop-blur-md rounded-2xl p-6 sm:p-10 text-center relative overflow-hidden transition-all duration-500">
+        <div class="absolute -top-12 -right-12 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="inline-block px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs tracking-widest mb-6 font-brush">
+          The Ultimate Martial Pulse Assessment
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-brush font-black text-transparent bg-clip-text bg-gradient-to-b from-amber-100 via-amber-300 to-amber-600 mb-4 tracking-wider leading-tight text-gold-glow">
+          Where Does<br>Your Blade Point?
+        </h1>
+
+        <p class="text-stone-300 text-sm sm:text-base leading-relaxed max-w-xl mx-auto mb-8 font-light">
+          The righteous path, the free way of the unorthodox, or the ruthless dominance of the Demonic Cult?<br>
+          Twenty questions scattered across the martial world will trace your inner energy and true temperament,<br>
+          revealing the <strong class="text-amber-400 font-normal">sect you belong to</strong> and the <strong class="text-amber-400 font-normal">legendary weapon</strong> destined for your hand.
+        </p>
+
+        <!-- Stats Overview -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-lg mx-auto mb-10 text-stone-300 text-xs">
+          <div class="p-3 bg-black/40 rounded-xl border border-stone-800">
+            <span class="block text-amber-400 font-bold text-base mb-1 font-brush">Engage / Withdraw</span>
+            <span>Worldly Interaction</span>
+          </div>
+          <div class="p-3 bg-black/40 rounded-xl border border-stone-800">
+            <span class="block text-amber-400 font-bold text-base mb-1 font-brush">External / Internal</span>
+            <span>Martial Perception</span>
+          </div>
+          <div class="p-3 bg-black/40 rounded-xl border border-stone-800">
+            <span class="block text-amber-400 font-bold text-base mb-1 font-brush">Law / Loyalty</span>
+            <span>Judgment of Right and Wrong</span>
+          </div>
+          <div class="p-3 bg-black/40 rounded-xl border border-stone-800">
+            <span class="block text-amber-400 font-bold text-base mb-1 font-brush">Form / Flow</span>
+            <span>Way of Movement</span>
+          </div>
+        </div>
+
+        <button onclick="startTest()" class="group relative inline-flex items-center gap-3 px-8 py-4 rounded-xl font-brush text-lg tracking-widest text-stone-900 font-bold bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:brightness-110 active:scale-95 transition-all shadow-[0_0_25px_rgba(212,175,55,0.4)]">
+          <span>Step Into the Jianghu</span>
+          <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </button>
+
+        <p class="mt-4 text-xs text-stone-500 font-brush">Time required: about 2 minutes (20 questions total)</p>
+      </section>
+
+      <!-- ==================== 2. QUESTION SCREEN ==================== -->
+      <section id="view-test" class="hidden border-murim bg-[#12141a]/95 backdrop-blur-md rounded-2xl p-5 sm:p-8 relative transition-all duration-300">
+
+        <!-- Progress Bar & Category Badge -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between text-xs mb-2">
+            <span id="step-badge" class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 font-brush">
+              Part I: Engagement · Stepping Forward vs. Withdrawing
+            </span>
+            <span id="progress-text" class="text-stone-400 font-brush">Question 1 / 20 (5%)</span>
+          </div>
+          <div class="w-full bg-stone-900 h-2 rounded-full overflow-hidden border border-stone-800">
+            <div id="progress-bar" class="bg-gradient-to-r from-amber-600 to-amber-400 h-full w-[5%] transition-all duration-300"></div>
+          </div>
+        </div>
+
+        <!-- Question List Container (Paging 5 items per screen) -->
+        <div id="question-list" class="space-y-8 min-h-[380px]">
+          <!-- Injected via JavaScript -->
+        </div>
+
+        <!-- Navigation Buttons & Notification -->
+        <div class="mt-8 pt-6 border-t border-stone-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <button id="btn-prev" onclick="prevPage()" class="w-full sm:w-auto px-6 py-2.5 rounded-lg border border-stone-700 hover:border-stone-500 text-stone-300 text-sm font-brush transition-all disabled:opacity-30 disabled:pointer-events-none">
+            ← Previous
+          </button>
+
+          <div id="page-warning" class="text-rose-400 text-xs font-brush tracking-wide opacity-0 transition-opacity">
+            ※ Please answer every question on this page before moving on.
+          </div>
+
+          <button id="btn-next" onclick="nextPage()" class="w-full sm:w-auto px-8 py-2.5 rounded-lg font-brush font-bold bg-amber-500 hover:bg-amber-400 text-stone-950 text-sm tracking-widest transition-all shadow-[0_0_15px_rgba(212,175,55,0.3)]">
+            Next →
+          </button>
+        </div>
+      </section>
+
+      <!-- ==================== 3. RESULT SCREEN ==================== -->
+      <section id="view-result" class="hidden border-murim bg-[#12141a]/95 backdrop-blur-md rounded-2xl p-6 sm:p-10 relative transition-all duration-500">
+
+        <div class="text-center mb-8">
+          <span class="inline-block px-4 py-1 rounded-full border border-amber-500/40 bg-amber-500/10 text-amber-300 text-xs tracking-widest mb-3 font-brush">
+            Assessment Complete
+          </span>
+          <div class="flex items-center justify-center gap-2 text-stone-400 text-xs tracking-widest font-brush mb-2">
+            <span>[</span><span id="res-sect-badge" class="text-amber-300 font-bold">Cheonma Demonic Cult</span><span>]</span>
+            <span class="text-stone-600">·</span>
+            <span>Weapon:</span><span id="res-weapon-badge" class="text-amber-300 font-bold">Demonic Blade</span>
+          </div>
+          <h2 id="res-title" class="text-2xl sm:text-4xl font-brush font-black text-stone-100 tracking-wide mb-3 text-gold-glow">
+            The Peerless Tyrant Set to Conquer the World
+          </h2>
+          <p id="res-subtitle" class="text-amber-200/80 text-sm max-w-lg mx-auto font-light leading-relaxed font-brush italic">
+            "Those who defy me shall be cut down; those who follow me shall rule the world."
+          </p>
+        </div>
+
+        <!-- 4 Spectrum Gauges -->
+        <div class="bg-black/40 rounded-xl p-5 border border-stone-800 mb-8 space-y-4">
+          <h4 class="text-xs text-amber-300/80 font-brush tracking-widest mb-3">◈ The Four Pulses: Distribution of Inner Energy</h4>
+
+          <!-- E / I Spectrum -->
+          <div>
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-0.5 sm:gap-0 text-xs mb-1 font-brush">
+              <span id="label-e" class="font-bold text-amber-300">Engage 65%</span>
+              <span id="label-i" class="text-teal-300 sm:text-right">Withdraw 35%</span>
+            </div>
+            <div class="h-2 w-full bg-stone-900 rounded-full overflow-hidden flex">
+              <div id="bar-e" class="bg-amber-500 h-full transition-all duration-700" style="width: 65%"></div>
+              <div id="bar-i" class="bg-teal-500 h-full transition-all duration-700" style="width: 35%"></div>
+            </div>
+          </div>
+
+          <!-- S / N Spectrum -->
+          <div>
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-0.5 sm:gap-0 text-xs mb-1 font-brush">
+              <span id="label-s" class="font-bold text-amber-300">External 70%</span>
+              <span id="label-n" class="text-teal-300 sm:text-right">Internal 30%</span>
+            </div>
+            <div class="h-2 w-full bg-stone-900 rounded-full overflow-hidden flex">
+              <div id="bar-s" class="bg-amber-500 h-full transition-all duration-700" style="width: 70%"></div>
+              <div id="bar-n" class="bg-teal-500 h-full transition-all duration-700" style="width: 30%"></div>
+            </div>
+          </div>
+
+          <!-- T / F Spectrum -->
+          <div>
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-0.5 sm:gap-0 text-xs mb-1 font-brush">
+              <span id="label-t" class="font-bold text-amber-300">Law 80%</span>
+              <span id="label-f" class="text-teal-300 sm:text-right">Loyalty 20%</span>
+            </div>
+            <div class="h-2 w-full bg-stone-900 rounded-full overflow-hidden flex">
+              <div id="bar-t" class="bg-amber-500 h-full transition-all duration-700" style="width: 80%"></div>
+              <div id="bar-f" class="bg-teal-500 h-full transition-all duration-700" style="width: 20%"></div>
+            </div>
+          </div>
+
+          <!-- J / P Spectrum -->
+          <div>
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-0.5 sm:gap-0 text-xs mb-1 font-brush">
+              <span id="label-j" class="font-bold text-amber-300">Form 75%</span>
+              <span id="label-p" class="text-teal-300 sm:text-right">Flow 25%</span>
+            </div>
+            <div class="h-2 w-full bg-stone-900 rounded-full overflow-hidden flex">
+              <div id="bar-j" class="bg-amber-500 h-full transition-all duration-700" style="width: 75%"></div>
+              <div id="bar-p" class="bg-teal-500 h-full transition-all duration-700" style="width: 25%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Character Details Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 text-sm">
+          <div class="p-4 bg-stone-900/60 rounded-xl border border-stone-800">
+            <h5 class="text-amber-400 font-brush font-bold text-base mb-2 flex items-center gap-2">
+              <span>⚔️</span> Nature & Reputation in the Jianghu
+            </h5>
+            <p id="res-desc" class="text-stone-300 text-xs sm:text-sm leading-relaxed whitespace-pre-line font-light">
+              <!-- description -->
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="p-4 bg-stone-900/60 rounded-xl border border-stone-800">
+              <h5 class="text-amber-400 font-brush font-bold text-base mb-1 flex items-center gap-2">
+                <span>📜</span> Signature Arts & Weapon
+              </h5>
+              <p id="res-skills" class="text-stone-300 text-xs sm:text-sm font-light">
+                <!-- martial arts -->
+              </p>
+            </div>
+
+            <div class="p-4 bg-stone-900/60 rounded-xl border border-stone-800">
+              <h5 class="text-rose-400 font-brush font-bold text-base mb-1 flex items-center gap-2">
+                <span>⚠️</span> Fatal Trigger for Qi Deviation
+              </h5>
+              <p id="res-weakness" class="text-stone-300 text-xs sm:text-sm font-light">
+                <!-- weakness -->
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chemistry Box -->
+        <div class="p-4 bg-stone-900/40 rounded-xl border border-amber-900/30 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+          <div class="flex items-center gap-3">
+            <span class="text-emerald-400 font-brush font-bold text-sm">Perfect Sparring Match:</span>
+            <span id="res-best" class="text-stone-200 bg-emerald-950/60 border border-emerald-800/60 px-3 py-1 rounded-md font-brush"></span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-rose-400 font-brush font-bold text-sm">Fated Nemesis:</span>
+            <span id="res-worst" class="text-stone-200 bg-rose-950/60 border border-rose-800/60 px-3 py-1 rounded-md font-brush"></span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <button onclick="copyResultText()" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 text-amber-200 text-sm font-brush tracking-wider transition-all flex items-center justify-center gap-2">
+            <span>📜</span> <span>Copy Result as Scroll</span>
+          </button>
+          <button onclick="shareURL()" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-stone-700 bg-stone-800 hover:bg-stone-700 text-stone-200 text-sm font-brush tracking-wider transition-all flex items-center justify-center gap-2">
+            <span>🔗</span> <span>Copy Invitation Link</span>
+          </button>
+          <button onclick="restartTest()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 text-sm font-brush font-bold tracking-widest transition-all">
+            Start Over
+          </button>
+        </div>
+
+        <!-- Toast Notice Notification -->
+        <div id="toast-msg" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-stone-900/90 text-amber-300 border border-amber-500/50 px-5 py-2.5 rounded-full text-xs font-brush tracking-wide opacity-0 pointer-events-none transition-all duration-300 shadow-2xl z-50">
+          Notice
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 w-full border-t border-stone-900 bg-black/60 py-4 px-6 text-center text-xs text-stone-500 font-brush font-light">
+    Jianghu Temperament Test (江湖性向檢査) · This test runs entirely in your browser and collects no personal data.
+  </footer>
+
+  <script>
+    // 20 Questions Data with Pure Murim Dimension Keys
+    const questions = [
+      // Part I: Engagement (Step Forward vs. Withdraw: 1~5)
+      { id: 1, type: 'EI', text: "A crowded tavern actually puts me at ease." },
+      { id: 2, type: 'EI', text: "I quickly warm up to martial artists I've just met." },
+      { id: 3, type: 'EI', text: "I enjoy time with others more than time alone." },
+      { id: 4, type: 'EI', text: "Speaking up in front of a crowd doesn't intimidate me." },
+      { id: 5, type: 'EI', text: "When troubled, I'd rather confide in someone than bear it alone." },
+
+      // Part II: Martial Perception (External vs. Internal: 6~10)
+      { id: 6, type: 'SN', text: "I prefer techniques I can use right away over complex theory." },
+      { id: 7, type: 'SN', text: "I focus more on what's in front of me than on the distant future." },
+      { id: 8, type: 'SN', text: "I trust visible results more than verbal explanations." },
+      { id: 9, type: 'SN', text: "I follow proven methods before trying new ones." },
+      { id: 10, type: 'SN', text: "I take things at face value rather than searching for hidden meaning." },
+
+      // Part III: Judgment (Law vs. Loyalty: 11~15)
+      { id: 11, type: 'TF', text: "When deciding, I weigh logic before emotion." },
+      { id: 12, type: 'TF', text: "Even with close friends, I call out what's wrong as wrong." },
+      { id: 13, type: 'TF', text: "I judge right and wrong before considering someone's circumstances." },
+      { id: 14, type: 'TF', text: "Even hearing a sad story, solutions come to mind first." },
+      { id: 15, type: 'TF', text: "I believe following the rules matters more than showing sympathy." },
+
+      // Part IV: Movement (Form vs. Flow: 16~20)
+      { id: 16, type: 'JP', text: "I feel at ease only when I make a plan and stick to it." },
+      { id: 17, type: 'JP', text: "I feel anxious if things aren't decided in advance." },
+      { id: 18, type: 'JP', text: "I need my belongings and tasks organized to feel comfortable." },
+      { id: 19, type: 'JP', text: "I always keep the time and place I've promised." },
+      { id: 20, type: 'JP', text: "I set an order to follow rather than acting on impulse." }
+    ];
+
+    // 16 Archetypes Database
+    const archetypes = {
+      "INTJ": {
+        clan: "Sacheon Tang Clan (四川唐門)",
+        weapon: "Hidden Weapons & Poison",
+        title: "The Strategist of a Thousand Schemes",
+        quote: "An unseen poison and a throwing blade calculated three moves ahead can break even the finest sword under heaven.",
+        desc: "A master tactician who reads a hundred moves ahead and manipulates the balance of power across the jianghu like a chessboard. Rather than crossing blades and shedding blood directly, you dismantle enemies beforehand through covert intelligence and meticulous schemes. Unswayed by emotion or bloodline, you look only toward ultimate efficiency and the greater cause.",
+        skills: "Heaven's Rain of Blades, Heaven-Net Internal Art, Silk-Thread Poison Needles",
+        weakness: "Your inner energy backfires when a flawless scheme unravels because of one fool's unpredictable, reckless act.",
+        best: "The Wandering Hero of the Beggars' Sect [Dog-Beating Staff]",
+        worst: "The Dashing Sword Saint of the Wanderers [Three-Foot Blade]"
+      },
+      "INTP": {
+        clan: "Mudang Sect (武當派)",
+        weapon: "Taiji Wooden Sword & Ancient Manuals",
+        title: "The Archive's Master of Mystic Arts",
+        quote: "The principles of all creation are already written in the paths of yin, yang, and the great Taiji.",
+        desc: "Utterly uninterested in sect politics or domination of the jianghu, you shut yourself in the scripture hall, deciphering the hidden meaning of ancient manuals and theorizing your own internal arts. Once lost in thought, you forget to eat or drink for days, and you show no mercy to anyone who argues with sloppy logic.",
+        skills: "Taiji Sword of Wisdom, Twin-Forces Divine Technique, Heaven-Earth Yin-Yang Reversal Art",
+        weakness: "Being dragged to inefficient sect ceremonies or pointless formal events and forced to stand around all day.",
+        best: "The World-Conquering Cult Leader of the Cheonma Cult [Demonic Blade]",
+        worst: "The Well-Connected Young Master of the Namgung Clan [Greatsword]"
+      },
+      "ENTJ": {
+        clan: "Cheonma Demonic Cult (天魔神敎)",
+        weapon: "Demonic Blade",
+        title: "The Peerless Tyrant Set to Conquer the World",
+        quote: "Those who defy me shall be cut down; those who follow me shall rule the world.",
+        desc: "A born ruler with the grand ambition to unify the martial world and the overwhelming drive to make it happen. You despise weak sentimentality, commanding tens of thousands of blades through strict reward and punishment and iron-willed leadership. The greater the crisis, the colder and sharper you become — you know no defeat.",
+        skills: "Heavenly Demon's Sovereign Step, Black Serpent Blade Art, Life-Force Absorption Technique",
+        weakness: "Watching victory slip away because of your subordinates' incompetence and indecision.",
+        best: "The Mystic Scholar of the Mudang Sect [Taiji Wooden Sword]",
+        worst: "The Carefree Wanderer of the Jongnam Sect [Fishing Rod]"
+      },
+      "ENTP": {
+        clan: "Ha-o-mun (下邪魔門)",
+        weapon: "Iron Fan",
+        title: "The Eccentric Sage with a Tongue Sharper Than Any Blade",
+        quote: "Hypocrites of the righteous path — does your book of morals even mention how to stay alive?",
+        desc: "A brilliant talker who snaps open a fan and runs circles around righteous-sect leaders with nothing but wit. You mock old-fashioned rules and stiff formality, needling opponents with outlandish, unorthodox tricks instead of textbook technique. The jianghu's resident trickster, you treat every argument and duel like a festival.",
+        skills: "Shifting Cloud Step, Tongue-Splitting Sovereign Art, Flying Butterfly Iron Fan Strike",
+        weakness: "Being lectured to 'shut up and obey' inside rigid, by-the-book rules.",
+        best: "The Reclusive Sage of the Gonryun Sect [Spirit Stone]",
+        worst: "The Devoted Senior Disciple of the Hwasan Sect [Plum Blossom Sword]"
+      },
+      "ISTJ": {
+        clan: "Shaolin Temple (少林寺)",
+        weapon: "Demon-Quelling Staff",
+        title: "The Elder Who Guards the Precepts",
+        quote: "Whoever breaks a century of precepts becomes an enemy of Patriarch Bodhidharma — and cannot escape my staff.",
+        desc: "A steadfast guardian who protects sect discipline and the code of the jianghu as if it were life itself. You strengthen your sect's foundations through flawless principle and unwavering diligence. Your iron will never lets a rule-breaking monk or a scoundrel go unpunished.",
+        skills: "Vajra Indestructible Body, Eighteen Arhat Formation, Demon-Quelling Staff Art",
+        weakness: "Sudden, unagreed changes of plan and broken appointments.",
+        best: "The Dashing Sword Saint of the Wanderers [Three-Foot Blade]",
+        worst: "The Wandering Hero of the Beggars' Sect [Dog-Beating Staff]"
+      },
+      "ISFJ": {
+        clan: "Hwasan Sect (華山派)",
+        weapon: "Plum Blossom Sword",
+        title: "The Warm-Hearted Senior Disciple of the Guardian Hall",
+        quote: "Upholding my master's will and protecting my juniors — that is my way of the sword.",
+        desc: "The sect's mother figure, quietly cleaning up after troublesome juniors and enduring the master's scolding without complaint. Outwardly calm and gentle, but when the sect or your fellow disciples are in danger, your plum blossom sword turns to frost and you become a shield willing to give your life.",
+        skills: "Twenty-Four Forms Plum Blossom Swordplay, Jade-Pure Inner Art, Spring Wind Guardian Technique",
+        weakness: "Facing an ungrateful junior who takes your devotion for granted and treats kindness as an entitlement.",
+        best: "The Mountain Bandit Chief of the Green Forest [Twin Axes]",
+        worst: "The Eccentric Sage of Ha-o-mun [Iron Fan]"
+      },
+      "ESTJ": {
+        clan: "The Magistrate's Bureau (官府)",
+        weapon: "Official's Blade",
+        title: "The Iron-Willed Chief Constable",
+        quote: "Martial artist or commoner, whoever breaks the law of the land cannot escape its frost-cold blade.",
+        desc: "Unable to tolerate disorder, you bring the lawless martial world under control through clear systems of reward and punishment. Organizational efficiency and law and order come first — you execute judgment swiftly and decisively, unmoved by tangled emotion.",
+        skills: "Pursuit and Capture Step, Heaven-Splitting Official Blade Art, Royal Guard Command Technique",
+        weakness: "Lazy subordinates who work without any system, and forced complaints that appeal to emotion instead of reason.",
+        best: "The Carefree Wanderer of the Jongnam Sect [Fishing Rod]",
+        worst: "The Melancholy Musician of the Emei Sect [Pipa]"
+      },
+      "ESFJ": {
+        clan: "Namgung Clan (南宮世家)",
+        weapon: "Greatsword",
+        title: "The Well-Connected Young Master of the Jianghu",
+        quote: "Nothing is more precious than the honor of the Namgung Clan and harmony among fellow martial artists.",
+        desc: "The emperor of high society, welcomed by friends at any of the eighteen great sects and noble clans. You attend closely to your family's honor, etiquette, and your companions' reputations, hosting feasts and banquets as a born mediator who smooths over conflict between factions.",
+        skills: "Boundless Azure Sky Swordplay, Eight-Directions Radiant Step, Gentleman's Peace Technique",
+        weakness: "Being gossiped about or excluded at a banquet you worked hard to prepare.",
+        best: "The One-Strike Assassin of the Shadow Blade Sect [Dagger]",
+        worst: "The Mystic Scholar of the Mudang Sect [Taiji Wooden Sword]"
+      },
+      "INFJ": {
+        clan: "Gonryun Sect (崑崙派)",
+        weapon: "Spirit Stone & Immortal Blade",
+        title: "The White-Haired Recluse Who Sees Beyond",
+        quote: "I see the calamity yet to come, while mortals remain drunk on desires right in front of them.",
+        desc: "A mysterious sage who foresees the fate of the world from an eternally snow-capped peak wreathed in cloud, far from the mortal realm. You see through others' true nature and the tragedies to come in the jianghu, and without ever stepping into the light, you leave your manual to the true hero who will save the age before vanishing into legend.",
+        skills: "Cloud-Mist Mind's Eye, Great Void Inner Energy, Heaven's Secret Revealing Art",
+        weakness: "Watching the catastrophe you warned of finally strike because of people's selfish greed.",
+        best: "The Eccentric Sage of Ha-o-mun [Iron Fan]",
+        worst: "The Mountain Bandit Chief of the Green Forest [Twin Axes]"
+      },
+      "INFP": {
+        clan: "Emei Sect (峨嵋派)",
+        weapon: "Pipa & Short Blade",
+        title: "The Melancholy Musician of Fate",
+        quote: "Rather than a blade stained with blood, I will pluck these strings to soothe the sorrows of this world.",
+        desc: "Disillusioned by the blood-soaked survival of the fittest in the martial world, you are a reclusive musician who plays alone, singing of romance and ideals. Usually shy and gentle, but when your cherished beliefs or the weak are trampled, your pipa strings unleash a deadly wave of sound that can bring a tavern down.",
+        skills: "Heavenly Demon Sound Art, Celestial Pipa Melody, Falling Petals Flowing Water Sword",
+        weakness: "Having your genuine kindness exploited and betrayed, or being forced to accept the martial world's cold cruelty.",
+        best: "The Righteous Leader of the Martial Alliance [Heaven-Reliant Sword]",
+        worst: "The Chief Constable of the Magistrate's Bureau [Official's Blade]"
+      },
+      "ENFJ": {
+        clan: "Martial Alliance (武林盟)",
+        weapon: "Heaven-Reliant Sword",
+        title: "The People's Beacon, Leader of the Righteous Alliance",
+        quote: "If righteousness falls to the ground, the jianghu is nothing but a pile of corpses — so I will draw my sword.",
+        desc: "A born hero and spiritual pillar who tends to people's wounds and unites everyone as one. You feel the people's injustices as your own, an unbreakable champion who rallies the righteous sects against the invasions of the unorthodox and demonic factions.",
+        skills: "Thunderclap Shout, Self-Sacrifice Technique, Heaven-Reliant Sovereign Swordplay",
+        weakness: "Watching the companions you trusted and protected with your life betray each other over profit.",
+        best: "The Melancholy Musician of the Emei Sect [Pipa]",
+        worst: "The One-Strike Assassin of the Shadow Blade Sect [Dagger]"
+      },
+      "ENFP": {
+        clan: "Beggars' Sect (丐幇)",
+        weapon: "Dog-Beating Staff",
+        title: "The Wandering Hero Chasing the Winds",
+        quote: "Honor and power are just dust on the wind! Throw on a ragged cloak and roam the whole world with me.",
+        desc: "You cast aside sect pride and formality like worn-out sandals, roaming the world with a gourd of cheap wine at your hip. A free spirit who makes new adventures and legends wherever you go, bringing laughter back to those sunk in despair through sheer positive energy.",
+        skills: "Dog-Beating Staff Technique, Drunken Eight Immortals Step, Eighteen Dragon-Subduing Palms",
+        weakness: "A prison-like life trapped in rigid rules, repeating the same paperwork and forms every single day.",
+        best: "The Strategist of the Sacheon Tang Clan [Hidden Weapons & Poison]",
+        worst: "The Elder of the Shaolin Temple [Demon-Quelling Staff]"
+      },
+      "ISTP": {
+        clan: "Shadow Blade Sect (黑殺門)",
+        weapon: "Dagger",
+        title: "The Shadowless One-Strike Assassin",
+        quote: "Flashy technique is unnecessary. One inch of blade is all it takes to end a breath.",
+        desc: "A person of few words and zero excess, a pure pragmatist. You despise complicated theory or arguments over principle, trusting only the edge of the dagger in your hand and your instinct for a one-strike kill using the terrain around you. A cold-blooded survivor who doesn't so much as blink in a crisis.",
+        skills: "Flying Shadow Ambush Kill, Pressure-Point Death Strike, Formless Stealth Step",
+        weakness: "Being asked for emotional comfort, or forced to sit through a long, pointless meeting.",
+        best: "The Well-Connected Young Master of the Namgung Clan [Greatsword]",
+        worst: "The Righteous Leader of the Martial Alliance [Heaven-Reliant Sword]"
+      },
+      "ISFP": {
+        clan: "Jongnam Sect (終南派)",
+        weapon: "Fishing Rod & Willow-Leaf Blade",
+        title: "The Carefree Wanderer of the Bamboo Grove",
+        quote: "What use is being the greatest under heaven, when paradise is a big catch by a clear stream?",
+        desc: "You have not the faintest interest in the bloody feuds between sects. A gifted drifter who naps by a bamboo-lined river and fishes away the years. You look endlessly lazy most days, but disturb your peaceful nap and a willow-leaf blade flashes out to cut down the offender in an instant.",
+        skills: "Carefree Inner Art, Jade-Shattering Whirlwind Blade, Great Void Flowing Cloud Step",
+        weakness: "Having your quiet corner of the world invaded and being pressured to 'compete fiercely and get ahead.'",
+        best: "The Chief Constable of the Magistrate's Bureau [Official's Blade]",
+        worst: "The World-Conquering Cult Leader of the Cheonma Cult [Demonic Blade]"
+      },
+      "ESTP": {
+        clan: "Green Forest Eighteen Strongholds (綠林十八寨)",
+        weapon: "Twin Axes",
+        title: "The Tavern-Brawling Mountain Bandit Chief",
+        quote: "Talk too much, get cut down! Charge in first, sort out the mess later!",
+        desc: "A wild-horse of a fighter whose body reacts before the mind can calculate. The greater the danger, the hotter your blood boils — when a brawl breaks out in a tavern, fists and chairs fly first. You break through seemingly impossible odds with overwhelming nerve and animal instinct.",
+        skills: "Heaven-Breaking Single Strike, Twin Axe Whirlwind Cut, Roaring Tiger Chaos Fist",
+        weakness: "Being made to sit quietly, read a hundred-year long-term plan, and stamp your approval on it.",
+        best: "The Devoted Senior Disciple of the Hwasan Sect [Plum Blossom Sword]",
+        worst: "The Reclusive Sage of the Gonryun Sect [Spirit Stone]"
+      },
+      "ESFP": {
+        clan: "The Wanderers (風流客)",
+        weapon: "Three-Foot Blade & Fine Silks",
+        title: "The Dashing Sword Saint in Full Peach Blossom",
+        quote: "If I must draw my sword, shouldn't it be the most dazzling, elegant draw under heaven?",
+        desc: "Draped in gorgeous silk, you're the superstar who draws every eye in the tavern. Winning or losing a fight matters less than how beautiful and romantic your sword dance looks. A jianghu celebrity who lives on spontaneous flair and the crowd's applause.",
+        skills: "Scattering Peach Blossom Dance, Blooming Flowers Sword, Seven-Colored Illusion Step",
+        weakness: "Training alone against a bare dirt wall in some desolate mountain valley where nobody is watching.",
+        best: "The Elder of the Shaolin Temple [Demon-Quelling Staff]",
+        worst: "The Strategist of the Sacheon Tang Clan [Hidden Weapons & Poison]"
+      }
+    };
+
+    // State Variables
+    let answers = {};
+    let currentPage = 0;
+    const PAGE_SIZE = 5;
+    const TOTAL_PAGES = Math.ceil(questions.length / PAGE_SIZE);
+
+    function startTest() {
+      document.getElementById('view-intro').classList.add('hidden');
+      document.getElementById('view-test').classList.remove('hidden');
+      currentPage = 0;
+      renderCurrentPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderCurrentPage() {
+      const container = document.getElementById('question-list');
+      container.innerHTML = '';
+
+      const startIdx = currentPage * PAGE_SIZE;
+      const pageQuestions = questions.slice(startIdx, startIdx + PAGE_SIZE);
+
+      // Part Badge
+      const partBadge = document.getElementById('step-badge');
+      if (startIdx < 5) partBadge.textContent = "Part I: Engagement · Stepping Forward vs. Withdrawing";
+      else if (startIdx < 10) partBadge.textContent = "Part II: Martial Perception · External vs. Internal Arts";
+      else if (startIdx < 15) partBadge.textContent = "Part III: Judgment · Law vs. Loyalty";
+      else partBadge.textContent = "Part IV: Movement · Form vs. Flow";
+
+      // Update Progress Counter
+      const answeredCount = Object.keys(answers).length;
+      document.getElementById('progress-text').textContent = `Question ${answeredCount} / ${questions.length} (${Math.round((answeredCount / questions.length) * 100)}%)`;
+      document.getElementById('progress-bar').style.width = `${(answeredCount / questions.length) * 100}%`;
+
+      // Render 5 Questions with 7 Likert points
+      pageQuestions.forEach((q, idx) => {
+        const globalIdx = startIdx + idx + 1;
+        const currentVal = answers[q.id];
+
+        const qCard = document.createElement('div');
+        qCard.className = "bg-stone-900/50 p-5 rounded-xl border border-stone-800/80 transition-all hover:border-amber-500/30";
+        qCard.innerHTML = `
+          <div class="flex items-start gap-3 mb-4">
+            <span class="text-xs font-brush font-bold px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">Q${globalIdx}</span>
+            <p class="text-stone-200 text-sm sm:text-base font-normal leading-relaxed">${q.text}</p>
+          </div>
+
+          <!-- 7-point Likert Scale -->
+          <div class="pt-2">
+            <div class="flex justify-between items-center text-[11px] text-stone-400 mb-2 px-1">
+              <span class="text-rose-400 font-brush">Strongly Disagree</span>
+              <span class="text-stone-500 font-brush">Neutral</span>
+              <span class="text-emerald-400 font-brush">Strongly Agree</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-1 sm:gap-2 px-2 py-3 bg-black/40 rounded-xl border border-stone-800/60">
+              <!-- -3 -->
+              <button type="button" onclick="selectAnswer(${q.id}, -3)" class="likert-btn w-9 h-9 sm:w-11 sm:h-11 border-2 border-rose-600/70 text-rose-400 hover:bg-rose-950/40 ${currentVal === -3 ? 'selected bg-rose-600 text-white' : ''}" title="Strongly disagree">
+                <span class="text-xs font-bold font-brush">No</span>
+              </button>
+              <!-- -2 -->
+              <button type="button" onclick="selectAnswer(${q.id}, -2)" class="likert-btn w-8 h-8 sm:w-9 sm:h-9 border border-rose-500/60 text-rose-400 hover:bg-rose-950/30 ${currentVal === -2 ? 'selected bg-rose-700 text-white' : ''}" title="Disagree"></button>
+              <!-- -1 -->
+              <button type="button" onclick="selectAnswer(${q.id}, -1)" class="likert-btn w-7 h-7 sm:w-8 sm:h-8 border border-rose-400/40 text-rose-400 hover:bg-rose-950/20 ${currentVal === -1 ? 'selected bg-rose-800 text-white' : ''}" title="Slightly disagree"></button>
+              <!-- 0 -->
+              <button type="button" onclick="selectAnswer(${q.id}, 0)" class="likert-btn w-6 h-6 sm:w-7 sm:h-7 border border-stone-600 text-stone-400 hover:bg-stone-800 ${currentVal === 0 ? 'selected bg-stone-500 text-white' : ''}" title="Neutral"></button>
+              <!-- +1 -->
+              <button type="button" onclick="selectAnswer(${q.id}, 1)" class="likert-btn w-7 h-7 sm:w-8 sm:h-8 border border-emerald-400/40 text-emerald-400 hover:bg-emerald-950/20 ${currentVal === 1 ? 'selected bg-emerald-800 text-white' : ''}" title="Slightly agree"></button>
+              <!-- +2 -->
+              <button type="button" onclick="selectAnswer(${q.id}, 2)" class="likert-btn w-8 h-8 sm:w-9 sm:h-9 border border-emerald-500/60 text-emerald-400 hover:bg-emerald-950/30 ${currentVal === 2 ? 'selected bg-emerald-700 text-white' : ''}" title="Agree"></button>
+              <!-- +3 -->
+              <button type="button" onclick="selectAnswer(${q.id}, 3)" class="likert-btn w-9 h-9 sm:w-11 sm:h-11 border-2 border-emerald-500/80 text-emerald-400 hover:bg-emerald-950/40 ${currentVal === 3 ? 'selected bg-emerald-600 text-white' : ''}" title="Strongly agree">
+                <span class="text-xs font-bold font-brush">Yes</span>
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(qCard);
+      });
+
+      document.getElementById('btn-prev').disabled = (currentPage === 0);
+      document.getElementById('btn-next').textContent = (currentPage === TOTAL_PAGES - 1) ? "Complete Assessment (Reveal Results) ⚔️" : "Next →";
+      hideWarning();
+    }
+
+    function selectAnswer(questionId, value) {
+      answers[questionId] = value;
+      renderCurrentPage();
+    }
+
+    function nextPage() {
+      const startIdx = currentPage * PAGE_SIZE;
+      const pageQuestions = questions.slice(startIdx, startIdx + PAGE_SIZE);
+      const allAnswered = pageQuestions.every(q => answers[q.id] !== undefined);
+
+      if (!allAnswered) {
+        showWarning("※ Please answer every question on this page before moving on.");
+        return;
+      }
+
+      if (currentPage < TOTAL_PAGES - 1) {
+        currentPage++;
+        renderCurrentPage();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        calculateAndShowResult();
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        renderCurrentPage();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function showWarning(msg) {
+      const warn = document.getElementById('page-warning');
+      warn.textContent = msg;
+      warn.classList.remove('opacity-0');
+      warn.classList.add('opacity-100');
+    }
+
+    function hideWarning() {
+      const warn = document.getElementById('page-warning');
+      warn.classList.remove('opacity-100');
+      warn.classList.add('opacity-0');
+    }
+
+    function calculateAndShowResult() {
+      let scoreEI = 0;
+      let scoreSN = 0;
+      let scoreTF = 0;
+      let scoreJP = 0;
+
+      questions.forEach(q => {
+        const val = answers[q.id] || 0;
+        if (q.type === 'EI') scoreEI += val;
+        if (q.type === 'SN') scoreSN += val;
+        if (q.type === 'TF') scoreTF += val;
+        if (q.type === 'JP') scoreJP += val;
+      });
+
+      // Percent calculations (5 questions per axis, range -15 ~ +15)
+      const pE = Math.round(((scoreEI + 15) / 30) * 100);
+      const pI = 100 - pE;
+
+      const pS = Math.round(((scoreSN + 15) / 30) * 100);
+      const pN = 100 - pS;
+
+      const pT = Math.round(((scoreTF + 15) / 30) * 100);
+      const pF = 100 - pT;
+
+      const pJ = Math.round(((scoreJP + 15) / 30) * 100);
+      const pP = 100 - pJ;
+
+      // Determine internal mapping key
+      const key =
+        (scoreEI >= 0 ? "E" : "I") +
+        (scoreSN >= 0 ? "S" : "N") +
+        (scoreTF >= 0 ? "T" : "F") +
+        (scoreJP >= 0 ? "J" : "P");
+
+      const arch = archetypes[key] || archetypes["ENTJ"];
+
+      // Fill in result UI
+      document.getElementById('res-sect-badge').textContent = arch.clan;
+      document.getElementById('res-weapon-badge').textContent = arch.weapon;
+      document.getElementById('res-title').textContent = arch.title;
+      document.getElementById('res-subtitle').textContent = `"${arch.quote}"`;
+      document.getElementById('res-desc').textContent = arch.desc;
+      document.getElementById('res-skills').textContent = arch.skills;
+      document.getElementById('res-weakness').textContent = arch.weakness;
+      document.getElementById('res-best').textContent = arch.best;
+      document.getElementById('res-worst').textContent = arch.worst;
+
+      // Update Bar Widths & Labels
+      document.getElementById('label-e').textContent = `Engage ${pE}%`;
+      document.getElementById('label-i').textContent = `Withdraw ${pI}%`;
+      document.getElementById('bar-e').style.width = `${pE}%`;
+      document.getElementById('bar-i').style.width = `${pI}%`;
+
+      document.getElementById('label-s').textContent = `External ${pS}%`;
+      document.getElementById('label-n').textContent = `Internal ${pN}%`;
+      document.getElementById('bar-s').style.width = `${pS}%`;
+      document.getElementById('bar-n').style.width = `${pN}%`;
+
+      document.getElementById('label-t').textContent = `Law ${pT}%`;
+      document.getElementById('label-f').textContent = `Loyalty ${pF}%`;
+      document.getElementById('bar-t').style.width = `${pT}%`;
+      document.getElementById('bar-f').style.width = `${pF}%`;
+
+      document.getElementById('label-j').textContent = `Form ${pJ}%`;
+      document.getElementById('label-p').textContent = `Flow ${pP}%`;
+      document.getElementById('bar-j').style.width = `${pJ}%`;
+      document.getElementById('bar-p').style.width = `${pP}%`;
+
+      // Switch views
+      document.getElementById('view-test').classList.add('hidden');
+      document.getElementById('view-result').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function restartTest() {
+      answers = {};
+      currentPage = 0;
+      document.getElementById('view-result').classList.add('hidden');
+      document.getElementById('view-test').classList.add('hidden');
+      document.getElementById('view-intro').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function copyTextToClipboard(text, successMsg) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMsg);
+      } catch (err) {
+        showToast("Copy failed. Please copy it manually.");
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function copyResultText() {
+      const sect = document.getElementById('res-sect-badge').textContent;
+      const weapon = document.getElementById('res-weapon-badge').textContent;
+      const title = document.getElementById('res-title').textContent;
+      const quote = document.getElementById('res-subtitle').textContent;
+      const shareStr = `[Jianghu Temperament Test Result]\n◈ Sect: ${sect}\n◈ Weapon: ${weapon}\n◈ Title: ${title}\n${quote}\n\nDiscover your own path through the jianghu: ${window.location.href}`;
+      copyTextToClipboard(shareStr, "📜 Your result has been copied as a scroll!");
+    }
+
+    function shareURL() {
+      copyTextToClipboard(window.location.href, "🔗 Invitation link copied!");
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast-msg');
+      toast.textContent = msg;
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 2500);
+    }
+
+    const canvas = document.getElementById('fx-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Petal {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * -height;
+        this.size = Math.random() * 5 + 3;
+        this.speedY = Math.random() * 0.8 + 0.3;
+        this.speedX = Math.random() * 0.6 - 0.3;
+        this.opacity = Math.random() * 0.5 + 0.1;
+        this.color = Math.random() > 0.4 ? 'rgba(212, 175, 55,' : 'rgba(158, 42, 43,';
+        this.angle = Math.random() * 360;
+        this.spin = Math.random() * 0.02 - 0.01;
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX + Math.sin(this.angle) * 0.3;
+        this.angle += this.spin;
+        if (this.y > height + 20) {
+          this.reset();
+          this.y = -10;
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        ctx.fillStyle = `${this.color} ${this.opacity})`;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, this.size, this.size * 0.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < 35; i++) {
+      particles.push(new Petal());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+    window.onload = function() {
+      animate();
+    };
+  </script>
+</body>
+</html>
