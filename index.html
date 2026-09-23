@@ -162,21 +162,25 @@
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-lg mx-auto mb-10 text-stone-300 text-xs">
           <div class="p-3 bg-black/40 rounded-xl border border-stone-800">
             <span class="block text-amber-400 font-bold text-base mb-1 font-brush">출사 / 은거</span>
-            <span>강호교류(江湖交流)</span>
+            <span>사람들과 어울림 vs 혼자만의 시간</span>
           </div>
           <div class="p-3 bg-black/40 rounded-xl border border-stone-800">
             <span class="block text-amber-400 font-bold text-base mb-1 font-brush">외공 / 내공</span>
-            <span>무학인식(武學認識)</span>
+            <span>직접 부딪혀 배움 vs 생각으로 이해함</span>
           </div>
           <div class="p-3 bg-black/40 rounded-xl border border-stone-800">
             <span class="block text-amber-400 font-bold text-base mb-1 font-brush">법도 / 의기</span>
-            <span>은원판단(恩怨判斷)</span>
+            <span>논리로 판단 vs 마음으로 판단</span>
           </div>
           <div class="p-3 bg-black/40 rounded-xl border border-stone-800">
             <span class="block text-amber-400 font-bold text-base mb-1 font-brush">초식 / 유운</span>
-            <span>행보방식(行步方式)</span>
+            <span>계획적으로 행동 vs 즉흥적으로 행동</span>
           </div>
         </div>
+
+        <p class="text-xs text-stone-500 mb-2">
+          용어가 낯설다면 <a href="/glossary/" class="text-amber-400/80 hover:text-amber-300 underline underline-offset-2">쉬운 용어 사전</a>을 먼저 살펴보세요.
+        </p>
 
         <button onclick="startTest()" class="group relative inline-flex items-center gap-3 px-8 py-4 rounded-xl font-brush text-lg tracking-widest text-stone-900 font-bold bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:brightness-110 active:scale-95 transition-all shadow-[0_0_25px_rgba(212,175,55,0.4)]">
           <span>강호에 발을 들이기</span>
@@ -193,9 +197,9 @@
         
         <!-- Progress Bar & Category Badge -->
         <div class="mb-6">
-          <div class="flex items-center justify-between text-xs mb-2">
-            <span id="step-badge" class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 font-brush">
-              제1부 거취와 교류 · 출사(出仕)와 은거(隱居)
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 sm:gap-0 text-xs mb-2">
+            <span id="step-badge" class="inline-block w-fit px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 font-brush">
+              제1부 · 출사와 은거 (사람들과 어울림 vs 혼자만의 시간)
             </span>
             <span id="progress-text" class="text-stone-400 font-brush">문답 1 / 20 (5%)</span>
           </div>
@@ -249,13 +253,13 @@
 
         <!-- 4 Spectrum Gauges (No English Labels) -->
         <div class="bg-black/40 rounded-xl p-5 border border-stone-800 mb-8 space-y-4">
-          <h4 class="text-xs text-amber-300/80 font-brush tracking-widest mb-3">◈ 사대심맥(四大心脈) 내공 기운 분포</h4>
-          
+          <h4 class="text-xs text-amber-300/80 font-brush tracking-widest mb-3">◈ 사대심맥(四大心脈) 내공 기운 분포 <span class="text-stone-500 font-sans font-normal tracking-normal">(나의 성향을 이루는 네 가지 축)</span></h4>
+
           <!-- E / I Spectrum -->
           <div>
             <div class="flex flex-col sm:flex-row sm:justify-between gap-0.5 sm:gap-0 text-xs mb-1 font-brush">
-              <span id="label-e" class="font-bold text-amber-300">출사(出仕) 65%</span>
-              <span id="label-i" class="text-teal-300 sm:text-right">은거(隱居) 35%</span>
+              <span id="label-e" class="font-bold text-amber-300">출사 · 사람들과 어울림 65%</span>
+              <span id="label-i" class="text-teal-300 sm:text-right">은거 · 혼자만의 시간 35%</span>
             </div>
             <div class="h-2 w-full bg-stone-900 rounded-full overflow-hidden flex">
               <div id="bar-e" class="bg-amber-500 h-full transition-all duration-700" style="width: 65%"></div>
@@ -266,8 +270,8 @@
           <!-- S / N Spectrum -->
           <div>
             <div class="flex flex-col sm:flex-row sm:justify-between gap-0.5 sm:gap-0 text-xs mb-1 font-brush">
-              <span id="label-s" class="font-bold text-amber-300">외공 실전(外功) 70%</span>
-              <span id="label-n" class="text-teal-300 sm:text-right">내공 심법(內功) 30%</span>
+              <span id="label-s" class="font-bold text-amber-300">외공 · 직접 부딪혀 배움 70%</span>
+              <span id="label-n" class="text-teal-300 sm:text-right">내공 · 생각으로 이해함 30%</span>
             </div>
             <div class="h-2 w-full bg-stone-900 rounded-full overflow-hidden flex">
               <div id="bar-s" class="bg-amber-500 h-full transition-all duration-700" style="width: 70%"></div>
@@ -278,8 +282,8 @@
           <!-- T / F Spectrum -->
           <div>
             <div class="flex flex-col sm:flex-row sm:justify-between gap-0.5 sm:gap-0 text-xs mb-1 font-brush">
-              <span id="label-t" class="font-bold text-amber-300">법도 이치(法度) 80%</span>
-              <span id="label-f" class="text-teal-300 sm:text-right">의기 인정(義氣) 20%</span>
+              <span id="label-t" class="font-bold text-amber-300">법도 · 논리로 판단 80%</span>
+              <span id="label-f" class="text-teal-300 sm:text-right">의기 · 마음으로 판단 20%</span>
             </div>
             <div class="h-2 w-full bg-stone-900 rounded-full overflow-hidden flex">
               <div id="bar-t" class="bg-amber-500 h-full transition-all duration-700" style="width: 80%"></div>
@@ -290,8 +294,8 @@
           <!-- J / P Spectrum -->
           <div>
             <div class="flex flex-col sm:flex-row sm:justify-between gap-0.5 sm:gap-0 text-xs mb-1 font-brush">
-              <span id="label-j" class="font-bold text-amber-300">초식 정립(招式) 75%</span>
-              <span id="label-p" class="text-teal-300 sm:text-right">유운 신법(流雲) 25%</span>
+              <span id="label-j" class="font-bold text-amber-300">초식 · 계획적으로 행동 75%</span>
+              <span id="label-p" class="text-teal-300 sm:text-right">유운 · 즉흥적으로 행동 25%</span>
             </div>
             <div class="h-2 w-full bg-stone-900 rounded-full overflow-hidden flex">
               <div id="bar-j" class="bg-amber-500 h-full transition-all duration-700" style="width: 75%"></div>
@@ -323,7 +327,7 @@
 
             <div class="p-4 bg-stone-900/60 rounded-xl border border-stone-800">
               <h5 class="text-rose-400 font-brush font-bold text-base mb-1 flex items-center gap-2">
-                <span>⚠️</span> 치명적인 주화입마(走火入魔) 조건
+                <span>⚠️</span> 치명적인 주화입마(走火入魔) 조건 <span class="text-stone-500 text-xs font-sans font-normal">(스트레스를 받는 상황)</span>
               </h5>
               <p id="res-weakness" class="text-stone-300 text-xs sm:text-sm font-light">
                 <!-- weakness -->
@@ -335,11 +339,11 @@
         <!-- Chemistry Box (Pure Murim Titles) -->
         <div class="p-4 bg-stone-900/40 rounded-xl border border-amber-900/30 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
           <div class="flex items-center gap-3">
-            <span class="text-emerald-400 font-brush font-bold text-sm">환상의 비무 짝패:</span>
+            <span class="text-emerald-400 font-brush font-bold text-sm">환상의 비무 짝패 (찰떡궁합):</span>
             <span id="res-best" class="text-stone-200 bg-emerald-950/60 border border-emerald-800/60 px-3 py-1 rounded-md font-brush"></span>
           </div>
           <div class="flex items-center gap-3">
-            <span class="text-rose-400 font-brush font-bold text-sm">상극의 숙명적 원수:</span>
+            <span class="text-rose-400 font-brush font-bold text-sm">상극의 숙명적 원수 (안 맞는 상대):</span>
             <span id="res-worst" class="text-stone-200 bg-rose-950/60 border border-rose-800/60 px-3 py-1 rounded-md font-brush"></span>
           </div>
         </div>
@@ -381,6 +385,8 @@
     <a href="/intro/" class="hover:text-amber-400">소개</a>
     <span class="mx-1">·</span>
     <a href="/clan/" class="hover:text-amber-400">문파 해설</a>
+    <span class="mx-1">·</span>
+    <a href="/glossary/" class="hover:text-amber-400">용어 사전</a>
     <span class="mx-1">·</span>
     <a href="/privacy.html" class="hover:text-amber-400">개인정보처리방침</a>
   </footer>
@@ -639,10 +645,10 @@
 
       // Murim Step Badge (No English)
       const partBadge = document.getElementById('step-badge');
-      if (startIdx < 5) partBadge.textContent = "제1부 거취와 교류 · 출사(出仕)와 은거(隱居)";
-      else if (startIdx < 10) partBadge.textContent = "제2부 무학 인식 · 외공(外功)과 내공(內功)";
-      else if (startIdx < 15) partBadge.textContent = "제3부 은원 판단 · 법도(法度)와 의기(義氣)";
-      else partBadge.textContent = "제4부 행보 방식 · 초식(招式)과 유운(流雲)";
+      if (startIdx < 5) partBadge.textContent = "제1부 · 출사와 은거 (사람들과 어울림 vs 혼자만의 시간)";
+      else if (startIdx < 10) partBadge.textContent = "제2부 · 외공과 내공 (직접 부딪혀 배움 vs 생각으로 이해함)";
+      else if (startIdx < 15) partBadge.textContent = "제3부 · 법도와 의기 (논리로 판단 vs 마음으로 판단)";
+      else partBadge.textContent = "제4부 · 초식과 유운 (계획적으로 행동 vs 즉흥적으로 행동)";
 
       // Update Progress Counter (Pure Korean / Hanja feel)
       const answeredCount = Object.keys(answers).length;
@@ -824,24 +830,24 @@
       document.getElementById('res-worst').textContent = arch.worst;
       document.getElementById('res-clan-link').href = `/clan/${arch.slug}/`;
 
-      // Update Bar Widths & Pure Hanja/Korean Labels
-      document.getElementById('label-e').textContent = `출사(出仕) 강호교류 ${pE}%`;
-      document.getElementById('label-i').textContent = `은거(隱居) 독행폐관 ${pI}%`;
+      // Update Bar Widths & Labels (with plain-language glosses)
+      document.getElementById('label-e').textContent = `출사 · 사람들과 어울림 ${pE}%`;
+      document.getElementById('label-i').textContent = `은거 · 혼자만의 시간 ${pI}%`;
       document.getElementById('bar-e').style.width = `${pE}%`;
       document.getElementById('bar-i').style.width = `${pI}%`;
 
-      document.getElementById('label-s').textContent = `외공(外功) 실전감각 ${pS}%`;
-      document.getElementById('label-n').textContent = `내공(內功) 심법직관 ${pN}%`;
+      document.getElementById('label-s').textContent = `외공 · 직접 부딪혀 배움 ${pS}%`;
+      document.getElementById('label-n').textContent = `내공 · 생각으로 이해함 ${pN}%`;
       document.getElementById('bar-s').style.width = `${pS}%`;
       document.getElementById('bar-n').style.width = `${pN}%`;
 
-      document.getElementById('label-t').textContent = `법도(法度) 냉철규율 ${pT}%`;
-      document.getElementById('label-f').textContent = `의기(義氣) 인과의정 ${pF}%`;
+      document.getElementById('label-t').textContent = `법도 · 논리로 판단 ${pT}%`;
+      document.getElementById('label-f').textContent = `의기 · 마음으로 판단 ${pF}%`;
       document.getElementById('bar-t').style.width = `${pT}%`;
       document.getElementById('bar-f').style.width = `${pF}%`;
 
-      document.getElementById('label-j').textContent = `초식(招式) 정립계책 ${pJ}%`;
-      document.getElementById('label-p').textContent = `유운(流雲) 임기응변 ${pP}%`;
+      document.getElementById('label-j').textContent = `초식 · 계획적으로 행동 ${pJ}%`;
+      document.getElementById('label-p').textContent = `유운 · 즉흥적으로 행동 ${pP}%`;
       document.getElementById('bar-j').style.width = `${pJ}%`;
       document.getElementById('bar-p').style.width = `${pP}%`;
     }
